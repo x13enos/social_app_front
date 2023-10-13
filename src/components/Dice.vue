@@ -1,41 +1,34 @@
 <script setup lang="ts">
-  import { defineProps, ref, watch, toRefs, Ref } from 'vue';
-  const selected: Ref<boolean> = ref(false);
+  import { defineProps, ref, toRefs, defineEmits, Ref } from 'vue';
+  const emit = defineEmits(['select'])
   const dataRoll: Ref<number> = ref(6);
-  let interval: any = null
 
   const props = defineProps<{
     disabled: boolean,
     rolling: boolean,
+    selected: boolean,
+    value?: number
   }>();
 
-  const {rolling, disabled}: any = toRefs(props);
+  const { rolling, disabled, selected, value }: any = toRefs(props);
 
   function selectDice() {
     if (disabled.value) return;
-    selected.value = !selected.value;
+    emit('select');
   }
 
-  // watch rolling and start to change dataRoll value each 100ms. if it's false stop changing dataRoll value
-  watch(() => rolling.value, (newValue: boolean, _oldValue: boolean) => {
-    if (disabled.value || !selected.value)
-      return;
-
-    if (newValue) {
-      interval = setInterval(() => {
-        dataRoll.value = Math.floor(Math.random() * 6) + 1;
-      }, 100);
-    } else {
-      clearInterval(interval);
-    }
-  });
+  if (rolling.value && !disabled.value) {
+    setInterval(() => {
+      dataRoll.value = Math.floor(Math.random() * 6) + 1;
+    }, 100);
+  }
 
 </script>
 
 <template>
   <div 
     class="die-6"
-    :data-roll="dataRoll"
+    :data-roll="value || dataRoll"
     :class="{ disabled, selected }"
     @click="selectDice()">
     <div class="dot-tl"></div>
