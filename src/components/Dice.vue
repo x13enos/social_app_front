@@ -1,36 +1,32 @@
 <script setup lang="ts">
-  import { defineProps, ref, toRefs, defineEmits, Ref } from 'vue';
-  const emit = defineEmits(['select'])
-  const dataRoll: Ref<number> = ref(6);
+import { ref, toRefs, Ref } from 'vue';
+const emit = defineEmits(['select'])
+const dataRoll: Ref<number> = ref(6);
 
-  const props = defineProps<{
-    disabled: boolean,
-    rolling: boolean,
-    selected: boolean,
-    value?: number
-  }>();
+const props = defineProps<{
+  disabled: boolean,
+  rolling?: boolean,
+  selected?: boolean,
+  value?: number
+}>();
 
-  const { rolling, disabled, selected, value }: any = toRefs(props);
+const { rolling = false, disabled, selected = false, value }: any = toRefs(props);
 
-  function selectDice() {
-    if (disabled.value) return;
-    emit('select');
-  }
+function selectDice() {
+  if (disabled.value) return;
+  emit('select');
+}
 
-  if (rolling.value && !disabled.value) {
-    setInterval(() => {
-      dataRoll.value = Math.floor(Math.random() * 6) + 1;
-    }, 100);
-  }
+if (rolling.value && !disabled.value) {
+  setInterval(() => {
+    dataRoll.value = Math.floor(Math.random() * 6) + 1;
+  }, 100);
+}
 
 </script>
 
 <template>
-  <div 
-    class="die-6"
-    :data-roll="value || dataRoll"
-    :class="{ disabled, selected }"
-    @click="selectDice()">
+  <div class="die-6" :data-roll="value || dataRoll" :class="{ disabled, selected }" @click="selectDice()">
     <div class="dot-tl"></div>
     <div class="dot-tr"></div>
     <div class="dot-ml"></div>
