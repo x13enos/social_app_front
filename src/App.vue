@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Activity from './components/activity/index.vue'
 </script>
 
 <template>
   <Suspense>
-    <HelloWorld />
+    <Activity />
   </Suspense>
 </template>
 

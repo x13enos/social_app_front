@@ -46,7 +46,6 @@ const activityData: Ref<ActivityData> = ref({} as ActivityData)
 if (Telegram.WebApp.initDataUnsafe["start_param"]) {
   const response = await axios.get(`/activities/${Telegram.WebApp.initDataUnsafe["start_param"]}`, { params: { user_id: userData.value.id } })
   activityData.value = response.data;
-  console.log(activityData.value)
 }
 
 const rollDice = async () => {
@@ -58,10 +57,9 @@ const rollDice = async () => {
   }
   const response = await axios.put(`/activities/roll_dice`, params)
   rollResults.value = response.data;
-  console.log(rollResults.value)
   setTimeout(() => {
     state.value = 'rolled';
-  }, 1500)
+  }, 1000)
 }
 
 const selectDice = (value: number) => {
@@ -93,7 +91,7 @@ const closeApp = () => {
             <Dice v-for="(index) in activityData?.dice" :key="index" :selected="index <= selectedDice"
               :disabled="index > activityData?.available_dice" @click="selectDice(index)" />
           </div>
-          <button @click="rollDice">Roll</button>
+          <button class="btn-outline-blue" @click="rollDice">Roll</button>
         </template>
 
         <template v-if="state == 'rolling'">
@@ -102,7 +100,7 @@ const closeApp = () => {
             <Dice v-for="(index) in activityData?.dice" :key="index" :selected="index <= selectedDice"
               :disabled="index > selectedDice" rolling />
           </div>
-          <button @click="rollDice">Roll</button>
+          <button class="disabled btn-outline-blue">Roll</button>
         </template>
 
         <template v-if="state == 'rolled'">
@@ -114,7 +112,7 @@ const closeApp = () => {
             <Dice v-for="(index) in activityData?.dice" :key="index" :value="rollResults?.dice_results?.[index - 1]"
               :disabled="index > selectedDice" />
           </div>
-          <button @click="closeApp">Close</button>
+          <button @click="closeApp" class="btn-outline-blue">Close</button>
         </template>
       </div>
     </div>
@@ -124,13 +122,6 @@ const closeApp = () => {
 <style scoped>
 .read-the-docs {
   color: #888;
-}
-
-.dice {
-  flex-wrap: wrap;
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
 }
 
 .dice-block {
@@ -143,6 +134,14 @@ const closeApp = () => {
 
 .failure {
   color: red;
+}
+
+.btn-outline-blue {
+  @apply mt-4 w-full bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded
+}
+
+.dice {
+  @apply mt-4 grid gap-4 grid-cols-4;
 }
 </style>
 
