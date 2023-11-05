@@ -10,7 +10,7 @@ SHELL ["/bin/sh", "-c"]
 
 # Set environment variables
 ENV APP_DIR=/app
-ENV VUE_APP_API_URL=http://localhost:3000
+ENV VITE_API_URL=https://social-game-api.andres-sild.com/api/v1
  
 # Create app directory
 RUN mkdir -p $APP_DIR
