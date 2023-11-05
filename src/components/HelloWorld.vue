@@ -44,7 +44,7 @@ const axios: any = inject('axios')
 const activityData: Ref<ActivityData> = ref({} as ActivityData)
 
 if (Telegram.WebApp.initDataUnsafe["start_param"]) {
-  const response = await axios.get(`activities/${Telegram.WebApp.initDataUnsafe["start_param"]}`, { params: { user_id: userData.value.id } })
+  const response = await axios.get(`https://social-game-api.andres-sild.com/api/v1/activities/${Telegram.WebApp.initDataUnsafe["start_param"]}`, { params: { user_id: userData.value.id } })
   activityData.value = response.data;
   console.log(activityData.value)
 }
@@ -56,7 +56,7 @@ const rollDice = async () => {
     character_id: activityData.value["character_id"],
     dice_number: selectedDice.value
   }
-  const response = await axios.put(`activities/roll_dice`, params)
+  const response = await axios.put(`https://social-game-api.andres-sild.com/api/v1/activities/roll_dice`, params)
   rollResults.value = response.data;
   console.log(rollResults.value)
   setTimeout(() => {
