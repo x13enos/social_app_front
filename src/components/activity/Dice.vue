@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, toRefs, Ref } from 'vue';
-const emit = defineEmits(['select'])
 const dataRoll: Ref<number> = ref(6);
 
 const props = defineProps<{
@@ -12,11 +11,6 @@ const props = defineProps<{
 
 const { rolling = false, disabled, selected = false, value }: any = toRefs(props);
 
-function selectDice() {
-  if (disabled.value) return;
-  emit('select');
-}
-
 if (rolling.value && !disabled.value) {
   setInterval(() => {
     dataRoll.value = Math.floor(Math.random() * 6) + 1;
@@ -26,7 +20,7 @@ if (rolling.value && !disabled.value) {
 </script>
 
 <template>
-  <div class="die-6" :data-roll="value || dataRoll" :class="{ disabled, selected }" @click="selectDice()">
+  <div class="die-6" :data-roll="value || dataRoll" :class="{ disabled, selected }">
     <div class="dot-tl"></div>
     <div class="dot-tr"></div>
     <div class="dot-ml"></div>
