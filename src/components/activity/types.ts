@@ -7,27 +7,29 @@ export interface UserData {
   allows_write_to_pm: boolean
 }
 
-export interface RollResults {
-  dice_results?: number[],
-  activity_result?: {
-    text: string,
-    type: 'success' | 'failure'
-  }
-}
-
 export interface Modifier {
+  id: number,
   name: string,
-  modifier: number,
+  power: number,
   description: string
 }
 
 export interface ActivityData {
   id: number,
   character_id: string,
+  role: string,
   description: string,
   status: string,
   available_dice: number,
   difficulty: number,
   dice: number,
-  modifiers: Modifier[]
+  modifiers: Modifier[],
+  abilities: Modifier[],
+  type: string,
 }
+
+export interface ActivityResult {
+  result: {},
+  type: "success" | "failure",
+  text: string,
+} 
