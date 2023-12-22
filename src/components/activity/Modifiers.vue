@@ -4,11 +4,12 @@ import Dice from './Dice.vue'
 import { Modifier } from './types'
 import Reroll from './modifiers/Reroll.vue'
 import { store } from './store'
+import { resolve } from './requests';
 
 const currentModifier: Ref<Modifier | null> = ref(null);
 const { activityData, diceResults } = store;
 const applyResults = () => {
-  store.state = 'rolled';
+  resolve();
 }
 </script>
 

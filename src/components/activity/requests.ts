@@ -19,7 +19,7 @@ export const rollDice = async () => {
   setTimeout(() => {
     store.selectedDice = [];
     if (store.activityResult?.type === 'success' || store.activityData["modifiers"].length === 0)
-      store.state = 'rolled';
+      store.state = 'resolved';
     else
       store.state = 'modifying';
   }, 1000)
@@ -38,6 +38,15 @@ export const rerollDice = async (modifier: Modifier) => {
   store.activityResult = response.data.activity_result;
   store.removeModifier(modifier);
   setTimeout(() => {
-    store.state = store.activityData["modifiers"].length ? 'modifying' : 'rolled';
+    store.state = store.activityData["modifiers"].length ? 'modifying' : 'resolved';
   }, 1000)
+}
+
+export const resolve = async () => {
+  const params = {
+    character_id: store.activityData["character_id"],
+  }
+  const response = await instance.put(`/activities/${store.activityData["id"]}`, params)
+  store.activityResult = response.data;
+  store.state = 'resolved';
 }

@@ -52,7 +52,7 @@ const { activityData }: { activityData: ActivityData } = store;
           <Choosing v-if="store.state == 'choosing'" />
           <Modifiers v-if="store.state == 'modifying'" />
           <Rolling v-if="store.state == 'rolling'" />
-          <Result v-if="store.state == 'rolled'" />
+          <Result v-if="store.state == 'resolved'" />
         </div>
       </div>
     </template>
