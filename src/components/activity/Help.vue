@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { store } from './store'
 import { ref, Ref, inject } from 'vue'
-import { Modifier } from './types';
+import { Modifier } from '@activity/types';
 
 const currentAbility: Ref<Modifier | null> = ref(null); currentAbility
 const helped: Ref<boolean> = ref(false);

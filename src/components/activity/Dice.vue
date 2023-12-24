@@ -6,7 +6,8 @@ const props = defineProps<{
   disabled: boolean,
   rolling?: boolean,
   selected?: boolean,
-  value?: number
+  value?: number,
+  success?: boolean,
 }>();
 
 const { rolling = false, disabled, selected = false, value }: any = toRefs(props);

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, Ref } from 'vue';
-import Dice from './Dice.vue'
+import DiceBlock from './DiceBlock.vue'
 import { Modifier } from './types'
 import Reroll from './modifiers/Reroll.vue'
 import { store } from './store'
@@ -10,6 +10,14 @@ const currentModifier: Ref<Modifier | null> = ref(null);
 const { activityData, diceResults } = store;
 const applyResults = () => {
   resolve();
+}
+
+const disabledCallback = (i: number) => {
+  return i + 1 > diceResults.real?.length;
+}
+
+const valueCallback = (i: number) => {
+  return diceResults.real?.[i]
 }
 </script>
 
@@ -26,10 +34,7 @@ const applyResults = () => {
     </li>
   </ul>
   <template v-if="!currentModifier">
-    <div class="dice-block">
-      <Dice v-for="(index) in activityData?.dice" :key="index" :value="diceResults?.[index - 1]"
-        :disabled="index > diceResults?.length" />
-    </div>
+    <DiceBlock :valueCallback="valueCallback" :disabledCallback="disabledCallback" />
     <button @click="applyResults" class="btn btn-outline-blue">Ignore help</button>
   </template>
   <Reroll v-if="currentModifier?.name == 'reroll'" :modifier="currentModifier" />

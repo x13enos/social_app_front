@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import Dice from './Dice.vue'
+import DiceBlock from '@activity/DiceBlock.vue'
 import { store } from './store'
 
-const { diceResults, activityData, activityResult } = store;
+const { diceResults, activityResult } = store;
+
+const valueCallback = (i: number) => {
+  return diceResults.real?.[i]
+}
+
+const disabledCallback = (i: number) => {
+  return i + 1 > diceResults.real?.length;
+}
+
 const closeApp = () => {
   // @ts-ignore: Unreachable code error
   Telegram.WebApp.close()
@@ -12,14 +21,12 @@ const closeApp = () => {
 <template>
   <div>
     <b>Result: </b>
+
     <span :class="activityResult?.type">
       {{ activityResult?.text }}
     </span>
   </div>
-  <div class="dice-block">
-    <Dice v-for="index in activityData?.dice" :key="index" :value="diceResults[index - 1]"
-      :disabled="index > diceResults?.length" />
-  </div>
+  <DiceBlock :valueCallback="valueCallback" :disabledCallback="disabledCallback" />
   <button @click="closeApp" class="btn btn-outline-blue">Close</button>
 </template>
 

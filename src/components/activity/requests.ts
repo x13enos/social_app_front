@@ -7,6 +7,7 @@ const instance = axios.create({
 })
 
 export const rollDice = async () => {
+  store.cleanDiceResults();
   store.state = 'rolling'
   const params = {
     activity_id: store.activityData["id"],
@@ -17,7 +18,6 @@ export const rollDice = async () => {
   store.diceResults = response.data.dice_results;
   store.activityResult = response.data.activity_result;
   setTimeout(() => {
-    store.selectedDice = [];
     if (store.activityResult?.type === 'success' || store.activityData["modifiers"].length === 0)
       store.state = 'resolved';
     else

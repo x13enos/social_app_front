@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, inject, Ref } from 'vue'
-import Rolling from './Rolling.vue'
-import Choosing from './Choosing.vue'
-import Result from './Result.vue'
-import Modifiers from './Modifiers.vue'
-import Help from './Help.vue'
-import { ActivityData, UserData } from './types'
-import { store } from './store'
+import Rolling from '@activity/Rolling.vue'
+import Choosing from '@activity/Choosing.vue'
+import Result from '@activity/Result.vue'
+import Modifiers from '@activity/Modifiers.vue'
+import Help from '@activity/Help.vue'
+import { ActivityData, UserData } from '@activity/types'
+import { store } from '@activity/store'
 
 declare var Telegram: any;
 
