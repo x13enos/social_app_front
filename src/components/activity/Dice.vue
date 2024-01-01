@@ -7,10 +7,10 @@ const props = defineProps<{
   rolling?: boolean,
   selected?: boolean,
   value?: number,
-  success?: boolean,
+  success?: boolean
 }>();
 
-const { rolling = false, disabled, selected = false, value }: any = toRefs(props);
+const { rolling = false, disabled, selected = false, value, success }: any = toRefs(props);
 
 if (rolling.value && !disabled.value) {
   setInterval(() => {
@@ -21,7 +21,7 @@ if (rolling.value && !disabled.value) {
 </script>
 
 <template>
-  <div class="die-6" :data-roll="value || dataRoll" :class="{ disabled, selected }">
+  <div class="die-6" :data-roll="value || dataRoll" :class="{ disabled, selected, success }">
     <div class="dot-tl"></div>
     <div class="dot-tr"></div>
     <div class="dot-ml"></div>
@@ -61,6 +61,11 @@ if (rolling.value && !disabled.value) {
 .disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.success {
+  box-shadow: 0 0 0 1px #76e557;
+  border-color: #76e557;
 }
 
 /* with the selected class it should have orange border */

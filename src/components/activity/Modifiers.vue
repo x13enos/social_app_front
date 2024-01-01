@@ -16,9 +16,7 @@ const disabledCallback = (i: number) => {
   return i + 1 > diceResults.real?.length;
 }
 
-const valueCallback = (i: number) => {
-  return diceResults.real?.[i]
-}
+const activeModifiers = activityData.modifiers.active;
 </script>
 
 <template>
@@ -26,7 +24,7 @@ const valueCallback = (i: number) => {
     <b>Use modifier! </b>
   </div>
   <ul class="grid w-full gap-6 md:grid-cols-2">
-    <li v-for="modifier in activityData.modifiers" :key="modifier.name">
+    <li v-for="modifier in activeModifiers" :key="modifier.name">
       <input type="radio" :id="modifier.name" v-model="currentModifier" :value="modifier" class="hidden peer" required>
       <label :for="modifier.name" class="radio-label">
         {{ modifier.name }}
@@ -34,7 +32,7 @@ const valueCallback = (i: number) => {
     </li>
   </ul>
   <template v-if="!currentModifier">
-    <DiceBlock :valueCallback="valueCallback" :disabledCallback="disabledCallback" />
+    <DiceBlock :disabledCallback="disabledCallback" />
     <button @click="applyResults" class="btn btn-outline-blue">Ignore help</button>
   </template>
   <Reroll v-if="currentModifier?.name == 'reroll'" :modifier="currentModifier" />

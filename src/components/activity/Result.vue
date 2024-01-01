@@ -4,10 +4,6 @@ import { store } from './store'
 
 const { diceResults, activityResult } = store;
 
-const valueCallback = (i: number) => {
-  return diceResults.real?.[i]
-}
-
 const disabledCallback = (i: number) => {
   return i + 1 > diceResults.real?.length;
 }
@@ -26,7 +22,7 @@ const closeApp = () => {
       {{ activityResult?.text }}
     </span>
   </div>
-  <DiceBlock :valueCallback="valueCallback" :disabledCallback="disabledCallback" />
+  <DiceBlock :disabledCallback="disabledCallback" />
   <button @click="closeApp" class="btn btn-outline-blue">Close</button>
 </template>
 

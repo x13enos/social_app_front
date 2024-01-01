@@ -11,7 +11,8 @@ export interface Modifier {
   id: number,
   name: string,
   power: number,
-  description: string
+  description: string,
+  category: "active" | "dice_result" | "dice_success",
 }
 
 export interface ActivityData {
@@ -23,7 +24,11 @@ export interface ActivityData {
   available_dice: number,
   difficulty: number,
   dice: number,
-  modifiers: Modifier[],
+  modifiers: {
+    active: Modifier[],
+    dice_result: Modifier[],
+    dice_success: Modifier[],
+  },
   abilities: Modifier[],
   type: string,
 }
