@@ -22,9 +22,9 @@ export const store: Store = reactive({
 })
 
 function removeModifier(modifier: Modifier) {
-  // find modifier by name and modifier and remove this from store.activityData.modifiers
-  const index = store.activityData.modifiers.findIndex(m => m.name === modifier.name && m.power === modifier.power)
-  store.activityData.modifiers.splice(index, 1)
+  // find modifier by name and modifier and remove this from store.activityData.modifiers.active
+  const index = store.activityData.modifiers.active.findIndex(m => m.name === modifier.name && m.power === modifier.power)
+  store.activityData.modifiers.active.splice(index, 1)
 }
 
 function cleanDiceResults() {

@@ -2,6 +2,7 @@
 import { store } from './store'
 import { ref, Ref, inject } from 'vue'
 import { Modifier } from '@activity/types';
+import ModifiersList from './modifiers/List.vue'
 
 const currentAbility: Ref<Modifier | null> = ref(null); currentAbility
 const helped: Ref<boolean> = ref(false);
@@ -28,6 +29,7 @@ const help = async () => {
 <template>
   <b>Description: </b> {{ store.activityData?.description }} <br />
   <b>Difficulty: </b> {{ store.activityData?.difficulty }} <br />
+  <ModifiersList />
 
   <h3 v-if="helped">Thank you for helping!</h3>
   <div class="mt-2">

@@ -18,7 +18,7 @@ export const rollDice = async () => {
   store.diceResults = response.data.dice_results;
   store.activityResult = response.data.activity_result;
   setTimeout(() => {
-    if (store.activityResult?.type === 'success' || store.activityData["modifiers"].length === 0)
+    if (store.activityResult?.type === 'success' || store.activityData["modifiers"].active.length === 0)
       store.state = 'resolved';
     else
       store.state = 'modifying';
@@ -38,7 +38,7 @@ export const rerollDice = async (modifier: Modifier) => {
   store.activityResult = response.data.activity_result;
   store.removeModifier(modifier);
   setTimeout(() => {
-    store.state = store.activityData["modifiers"].length ? 'modifying' : 'resolved';
+    store.state = store.activityData["modifiers"].active.length ? 'modifying' : 'resolved';
   }, 1000)
 }
 

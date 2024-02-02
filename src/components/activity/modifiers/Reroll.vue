@@ -31,10 +31,6 @@ const selectedCallback = (i: number) => {
   return store.selectedDice.includes(i);
 }
 
-const valueCallback = (i: number) => {
-  return diceResults.real?.[i]
-}
-
 const valid = computed(() => {
   const number = store.selectedDice.length;
   return number > 0 && number <= modifier.power
@@ -46,8 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <DiceBlock :disabledCallback="disabledCallback" :clickCallback="selectDice" :selectedCallback="selectedCallback"
-    :valueCallback="valueCallback" />
+  <DiceBlock :disabledCallback="disabledCallback" :clickCallback="selectDice" :selectedCallback="selectedCallback" />
   <button :disabled="!valid" :class="{ 'btn-disabled': !valid }" class="btn" @click="rerollDice(modifier)">
     Roll
   </button>

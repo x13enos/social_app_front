@@ -11,30 +11,26 @@ import { store } from '@activity/store'
 
 declare var Telegram: any;
 
-// const userData: Ref<UserData> = ref(Telegram.WebApp.initDataUnsafe["user"])
-const userData: Ref<UserData> = ref({
-  id: 2200488927,
-  first_name: 'John',
-  last_name: 'Doe',
-  username: 'johndoe',
-  language_code: 'en',
-  allows_write_to_pm: true
-})
+const userData: Ref<UserData> = ref(Telegram.WebApp.initDataUnsafe["user"])
+// const userData: Ref<UserData> = ref({
+//   id: 2200488927,
+//   first_name: 'John',
+//   last_name: 'Doe',
+//   username: 'johndoe',
+//   language_code: 'en',
+//   allows_write_to_pm: true
+// })
 const axios: any = inject('axios')
 
-// if (Telegram.WebApp.initDataUnsafe["start_param"]) {
-// const response = await axios.get(`/activities/${Telegram.WebApp.initDataUnsafe["start_param"]}`, { params: { user_id: userData.value.id } })
-const response = await axios.get(`/activities/630f66f6-d291-46b3-8b20-bfb576a7b167`, { params: { user_id: userData.value.id } })
-console.log(response.data)
-store.activityData = response.data;
-if (response.data.type == "help_selecting") {
-  store.diceResults = response.data.dice_results;
-  store.state = 'modifying'
+if (Telegram.WebApp.initDataUnsafe["start_param"]) {
+  const response = await axios.get(`/activities/${Telegram.WebApp.initDataUnsafe["start_param"]}`, { params: { user_id: userData.value.id } })
+  // const response = await axios.get(`/activities/44e33e81-affa-4eee-9d7c-4c138659f70e`, { params: { user_id: userData.value.id } })
+  store.activityData = response.data;
+  if (response.data.type == "help_selecting") {
+    store.diceResults = response.data.dice_results;
+    store.state = 'modifying'
+  }
 }
-// }
-
-// const response = await axios.get(`/activities/6be0b949-4915-47b3-8fe0-9fec84c37f94`, { params: { user_id: userData.value.id } })
-// store.activityData = response.data;
 
 const { activityData }: { activityData: ActivityData } = store;
 </script>
