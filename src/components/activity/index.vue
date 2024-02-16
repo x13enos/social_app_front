@@ -46,7 +46,11 @@ const { activityData }: { activityData: ActivityData } = store;
     <template v-else>
       <div>
         <b>Description: </b> {{ activityData?.description }} <br />
-        <b class="mt-2">Difficulty: </b> {{ activityData?.difficulty }} <br />
+        <b>Difficulty: </b>
+        {{ store.realDifficulty() }}
+        <span v-if="store.realDifficulty() !== store.activityData?.difficulty">(real - {{ store.activityData?.difficulty
+        }})</span>
+        <br />
         <ModifiersList />
         <div class="mt-2">
           <Choosing v-if="store.state == 'choosing'" />

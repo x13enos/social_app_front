@@ -28,7 +28,11 @@ const help = async () => {
 
 <template>
   <b>Description: </b> {{ store.activityData?.description }} <br />
-  <b>Difficulty: </b> {{ store.activityData?.difficulty }} <br />
+  <b>Difficulty: </b>
+  {{ store.realDifficulty() }}
+  <span v-if="store.realDifficulty() !== store.activityData?.difficulty">(real - {{ store.activityData?.difficulty
+  }})</span>
+  <br />
   <ModifiersList />
 
   <h3 v-if="helped">Thank you for helping!</h3>

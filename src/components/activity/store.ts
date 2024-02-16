@@ -8,7 +8,8 @@ interface Store {
   state: string,
   activityResult: ActivityResult,
   removeModifier: (modifier: Modifier) => void
-  cleanDiceResults: () => void
+  cleanDiceResults: () => void,
+  realDifficulty: () => number
 }
 
 export const store: Store = reactive({
@@ -18,15 +19,23 @@ export const store: Store = reactive({
   state: 'choosing',
   activityResult: {} as ActivityResult,
   removeModifier: removeModifier,
-  cleanDiceResults: cleanDiceResults
+  cleanDiceResults: cleanDiceResults,
+  realDifficulty: realDifficulty
 })
 
 function removeModifier(modifier: Modifier) {
-  // find modifier by name and modifier and remove this from store.activityData.modifiers.active
   const index = store.activityData.modifiers.active.findIndex(m => m.name === modifier.name && m.power === modifier.power)
   store.activityData.modifiers.active.splice(index, 1)
 }
 
 function cleanDiceResults() {
   store.diceResults = { real: [], with_modifiers: [], successes: [] }
+}
+
+function realDifficulty() {
+  let difficulty = store.activityData.difficulty
+  store.activityData.modifiers.dice_success.forEach(modifier => {
+    difficulty -= modifier.power
+  })
+  return difficulty
 }
