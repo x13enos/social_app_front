@@ -23,7 +23,7 @@ const valid = computed(() => {
 })
 
 const disabledCallback = (number: number) => {
-  return number > activityData?.available_dice;
+  return number >= activityData?.available_dice;
 }
 
 const selectedCallback = (number: number) => {
